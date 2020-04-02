@@ -14,15 +14,15 @@ in future versions.
 from selenium import webdriver
 from time import sleep
 from datetime import datetime
-
+from dotenv import load_dotenv
 
 import sys,os
 workPath = os.getcwd()
 sys.path.append(workPath)
 
-# Note that passphrase.py has to be updated to user's credentials
-from passphrase import rental_username, rental_password
-
+load_dotenv(dotenv_path=workPath+'/keys.env')
+rental_username = os.getenv("RENTAL_USER")
+rental_password = os.getenv("RENTAL_PASS")
 
 #%% Class definition 
 class Bot():

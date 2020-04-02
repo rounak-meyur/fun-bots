@@ -10,16 +10,16 @@ Description: This program automates likes in an Instagram account. The
 # Modules
 from selenium import webdriver
 from time import sleep
-from datetime import datetime
+from dotenv import load_dotenv
 
 
 import sys,os
 workPath = os.getcwd()
 sys.path.append(workPath)
 
-# Note that passphrase.py has to be updated to user's credentials
-from passphrase import facebook_username,facebook_password
-
+load_dotenv(dotenv_path=workPath+'/keys.env')
+facebook_username = os.getenv("FB_USER")
+facebook_password = os.getenv("FB_PASS")
 
 #%% Class definition 
 class Bot():
@@ -44,7 +44,7 @@ class Bot():
         Log in to your account with your credentials. For this program, the credentials
         are stored in the paraphrase.py file in the working folder.
         """
-        fb_btn = self.driver.find_element_by_xpath('//*[@id="react-root"]/section/main/article/div[2]/div[1]/div/form/div[1]/button')
+        fb_btn = self.driver.find_element_by_xpath('//*[@id="react-root"]/section/main/article/div[2]/div[1]/div/form/div[6]/button/span[2]')
         fb_btn.click()
         
         user_in = self.driver.find_element_by_xpath('//*[@id="email"]')
@@ -68,6 +68,7 @@ class Bot():
         Like unliked pictures in the feed
         """
         # Like instagram pictures
+        i = 0
         while i <num:
             all_like_btn = self.driver.find_elements_by_class_name('fr66n')
             for like_btn in all_like_btn:
